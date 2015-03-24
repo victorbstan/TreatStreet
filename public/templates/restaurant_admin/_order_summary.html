@@ -1,0 +1,95 @@
+<ul class="thumbnails list-unstyled col-sm-12 fadein">
+
+  <li ng-repeat="order in orders" class="gift-card pull-left">
+    <div class="thumbnail">
+      <h1 class="text-center"><span class="label label-primary">{{order.redemptionCode}}</span></h1>
+
+      <br>
+
+      <b>Order Details</b>
+      <ul class="list-unstyled">
+        <li>
+          <span class="fixed-width-label muted">Purchased</span>
+          {{order.createdAt | date}}
+        </li>
+        <li>
+          <span class="fixed-width-label muted">Value</span>
+          {{order.value | currency}} {{order.payment.currency | uppercase}}
+        </li>
+        <li>
+          <span class="fixed-width-label muted">Quantity</span>
+          {{order.quantity}}
+        </li>
+        <li>
+          <span class="fixed-width-label muted">Total</span>
+          {{order.total | currency}} {{order.payment.currency | uppercase}}
+        </li>
+        <li>
+          <span class="fixed-width-label muted">Fee</span>
+          %{{order.tsFee * 100}}
+        </li>
+        <li>
+          <span class="fixed-width-label muted">Remainder</span>
+          {{order.restaurantRemainder | currency}} {{order.payment.currency | uppercase}}
+        </li>
+      </ul>
+
+      <br>
+
+      <b>Recipient</b>
+      <ul class="list-unstyled">
+        <li>
+          <span class="fixed-width-label muted">Name</span>
+          {{order.recipient.name}}
+        </li>
+        <li>
+          <span class="fixed-width-label muted">Email</span>
+          <a href="mailto:{{order.recipient.email}}">{{order.recipient.email}}</a>
+        </li>
+        <li>
+          <span class="fixed-width-label muted">Phone</span>
+          <a href="tel:{{order.recipient.phone}}">{{order.recipient.phone}}</a>
+        </li>
+        <li>
+          <span class="fixed-width-label muted">Message</span>
+          <a href="" ng-show="order.recipient.message" popover="{{order.recipient.message}}">
+            {{order.recipient.message | limitTo:18}}...
+          </a>
+        </li>
+      </ul>
+
+      <br>
+
+      <b>Payment</b>
+      <ul class="list-unstyled">
+        <li>
+          <span class="fixed-width-label muted">Name</span>
+          {{order.payment.name}}
+        </li>
+         <li>
+          <span class="fixed-width-label muted">Email</span>
+          {{order.payment.email}}
+        </li>
+         <li>
+          <span class="fixed-width-label muted">Phone</span>
+          {{order.payment.phone}}
+        </li>
+         <li>
+          <span class="fixed-width-label muted">Notes</span>
+          <a href="" ng-show="order.payment.description" popover="{{order.payment.description}}">
+            {{order.payment.description | limitTo:18}}...
+          </a>
+        </li>
+      </ul>
+
+      <br>
+
+      <div class="form-group text-center">
+        <button ng-click="redeemed()" type="submit" class="btn btn-success">Redeem</button>
+        <button ng-click="active()" type="submit" class="btn btn-info">Active</button>
+        <button ng-click="cancelled()" type="submit" class="btn btn-warning">Cancel</button>
+      </div>
+    </div>
+  </li>
+
+</ul>

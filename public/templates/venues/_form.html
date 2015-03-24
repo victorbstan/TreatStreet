@@ -1,0 +1,161 @@
+<div class="row fadein">
+  <form ng-submit="submit(venue)" accept-charset="utf-8" class="form" enctype='multipart/form-data'>
+    <div class="col-sm-6">
+      <fieldset>
+        <legend>Information</legend>
+        <div class="form-group">
+          <label>Name</label>
+          <input ng-model="venue.name" type="text" name="name" required placeholder="Name" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea ng-model="venue.description" rows="6" name="description" required placeholder="Description" class="form-control" maxlength="430"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Menu</label>
+          <textarea ng-model="venue.menu" rows="6" type="text" name="menu" placeholder="Menu" class="form-control"></textarea>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Access</legend>
+        <div class="form-group">
+          <label>Public?</label>
+          <input ng-model="venue.public" type="checkbox" name="public" value="true">
+        </div>
+      </fieldset>
+      <div class="cleaboth clearfix"></div>
+    </div>
+    <div class="col-sm-6">
+      <fieldset>
+        <legend>Locations</legend>
+
+        <!-- Show warning if we don't have a venue.id -->
+        <div ng-show="!venue.id">
+          <div class="alert alert-info">You must save the venue first, before you can add a location.</div>
+        </div>
+
+        <!-- Hide if we don't have a venue.id -->
+        <div ng-hide="!venue.id">
+
+          <div ng-repeat='location in venue.locations'>
+            <div ng-include="'/templates/venues/_location.html'"></div>
+          </div>
+          <div class="form-group">
+            <a ng-click="addLocationToVenue()" class="btn btn-default">New Location</a>
+          </div>
+
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="cleaboth clearfix"></div>
+
+    <!-- UPLOADER -->
+    <div class="col-sm-12">
+      <div ng-controller="FileUploaderController" ng-file-drop>
+
+        <fieldset ng-show="uploader.hasHTML5">
+          <legend>Images</legend>
+
+          <!-- Show warning if we don't have a venue.id -->
+          <div ng-show="!venue.id">
+            <div class="alert alert-info">You must save the venue first, before you can upload pictures.</div>
+          </div>
+
+          <!-- Hide if we don't have a venue.id -->
+          <div ng-hide="!venue.id">
+
+            <!-- List existing images -->
+            <div class="row">
+              <div ng-repeat="image in venue.images" class="col-xs-6 col-md-3">
+                <div class="thumbnail">
+                  <img src="{{image}}">
+                  <div class="caption">
+                    <a ng-click="deleteImage(image)" class="btn btn-danger btn-sm" role="button">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. ng-file-over | ng-file-over="className" -->
+            <div class="well drop-zone" ng-file-over>
+              Drop Zone – <small>Drag and drop files here to add them to the queue.</small>
+            </div>
+
+            <input ng-file-select type="file" name="images" multiple>
+            <input ng-model="objId" type="hidden" name="objId" value="{{venue.id}}"></input>
+
+            <div style="margin-bottom: 40px">
+              <h4>Upload queue</h4>
+              <p>Queue length: {{uploader.queue.length}}</p>
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th width="50%">Name</th>
+                    <th>Size</th>
+                    <th>Progress</th>
+                    <th>Success</th>
+                    <th>Error</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="item in uploader.queue">
+                    <td><strong>{{item.file.name}}</strong></td>
+                    <td nowrap>{{item.file.size/1024/1024|number:2}} MB</td>
+                    <td>
+                      <div class="progress" style="margin-bottom: 0;">
+                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <i class="glyphicon glyphicon-ok" ng-show="item.isSuccess"></i>
+                    </td>
+                    <td>
+                      <i class="glyphicon glyphicon-remove" ng-show="item.isError"></i>
+                    </td>
+                    <td nowrap>
+                      <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                        <span class="glyphicon glyphicon-upload"></span> Upload
+                      </button>
+                      <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                        <span class="glyphicon glyphicon-trash"></span> Remove
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div>
+                <p>
+                  Queue progress:
+                  <div class="progress" style="">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                  </div>
+                </p>
+                <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                  <span class="glyphicon glyphicon-upload"></span> Upload all
+                </button>
+                <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                  <span class="glyphicon glyphicon-trash"></span> Remove all
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </fieldset>
+
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="col-sm-12">
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </form>
+</div>
+

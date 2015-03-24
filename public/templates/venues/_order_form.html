@@ -1,0 +1,143 @@
+<h4 class='text-center'>Pick your Treat Card & we'll send it to your recipients</h4>
+
+<div class="row" ng-controller="OrdersCreateController">
+  <div class="col-lg-12">
+    <form ng-submit="submit(order, modalVenue.id)" class="form form-inline order-form">
+      <center>
+
+        <!-- Quantity Selection -->
+        <div class="well order-dashboard" style="margin-bottom:-50px;"></div>
+        <div class="well well-md colorize bg-white" style="clear:both;width:120px;height:120px;border-radius:60px;padding-top:10px;">
+          <i class="fa fa-user fa-3x"></i><br>
+          <input ng-init="order.quantity=1" ng-model="order.quantity" type="number" name="quantity" value="{{order.quantity}}" placeholder="0" min="1" max="20" class="form-control input-sm" style="width:75px;">
+        </div>
+
+        <!-- Gift Card Options -->
+        <div class="form-group">
+          <div class="checkbox">
+            <div class="well well-md colorize1 bg-white">
+              <label><i class="fa fa-cutlery fa-2x"></i> <span class="value-number">50</span>
+                <input ng-model="order.value" type="radio" name="coupon-value" value="50" class="" />
+              </label>
+            </div>
+          </div>
+          <div class="checkbox">
+            <div class="well well-md colorize2 bg-white">
+              <label><i class="fa fa-cutlery fa-2x"></i> <span class="value-number">100</span>
+                <input ng-model="order.value" type="radio" name="coupon-value" value="100" class="" />
+              </label>
+            </div>
+          </div>
+          <div class="checkbox">
+            <div class="well well-md colorize3 bg-white">
+              <label><i class="fa fa-cutlery fa-2x"></i> <span class="value-number">150</span>
+                <input ng-model="order.value" type="radio" name="coupon-value" value="150" class="" />
+              </label>
+            </div>
+          </div>
+          <br>
+        </div>
+
+      </center>
+
+      <!-- Payment & Recipient forms -->
+      <div ng-show="order.value" ng-animate="'animate'">
+
+        <!-- Recipient -->
+        <fieldset>
+          <legend>Recipient's information</legend>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Recipient's name</label>
+              <input ng-model="order.recipient.name" type="text" value="" class="form-control" required>
+              <p class="help-block">The person who will receive this gift.</p>
+
+              <label>Email</label>
+              <input ng-model="order.recipient.email" type="email" value="" class="form-control" required>
+              <p class="help-block">Recipient's Email, so that we can send them the good news!</p>
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Personal message</label>
+              <textarea ng-model="order.recipient.message" rows="6" class="form-control"></textarea>
+              <p class="help-block">We will send your message along to your recipient!</p>
+            </div>
+          </div>
+        </fieldset>
+
+        <span style="clear:both;"></span>
+
+        <!-- Payment -->
+        <fieldset>
+          <legend>Payment details</legend>
+          <div class="payment-inputs">
+            <div class="bg-info">
+              We accept: <i>Visa</i>, <i>MasterCard</i> and <i>American Express</i>.
+
+            </div>
+            <div class="payment-form">
+              <div class="row">
+
+                <div class="form-group col-sm-12">
+                  <div class="row">
+                    <div class="form-group col-sm-6">
+                      <label>Your name</label>
+                      <input ng-model="order.payment.name" type="text" value="" class="form-control" required>
+                      <p class="help-block">Card holder's name.</p>
+
+                      <label>Email</label>
+                      <input ng-model="order.payment.email" type="email" name="email" class="form-control" required>
+                      <p class="help-block">The generous card holder's, email.</p>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                      <label>Notes</label>
+                      <textarea ng-model="order.payment.description" rows="6" class="form-control"></textarea>
+                      <p class="help-block">Notes to the restaurant.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                  <div class="row">
+                    <div class="col-sm-8">
+                      <label>Card Number</label>
+                      <input ng-model="order.stripe.number" type="number" size="20" class="form-control card-number" required>
+                      <p></p>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <label>CVC</label>
+                      <input ng-model="order.stripe.cvc" type="text" size="4" class="form-control card-cvc" required>
+                      <p></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class='col-sm-6'>
+                  <label>Expiration</label>
+                  <input ng-model="order.stripe.yearMonth" type="text" class="form-control card-expiry" required>
+                  <p class="help-block">Format: YYYY-MM, ex: 2014-05</p>
+                </div>
+
+                <div class='col-sm-6'>
+                  <a target="_blank" href="http://www.comodo.com/e-commerce/ssl-certificates/secure-server.php"><img src="images/SSL_200x40_ani2.gif" alt="Comodo SSL logo" style="border: 2px solid;border-radius: 5px;margin-top: 25px;margin-bottom: 25px;" class="pull-right"></a>
+                </div>
+
+                <div class='col-sm-12'>
+                  <div ng-show="CCAlerts" class="alert alert-{{CCAlerts.type}}">{{CCAlerts.msg}}</div>
+                  <button type="submit" class="btn btn-primary btn-block btn-lg">Buy Treat Card</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+      </div>
+    </form>
+
+    <hr>
+
+  </div>
+</div>
+

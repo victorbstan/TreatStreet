@@ -1,0 +1,54 @@
+<div class="row fadein">
+  <div class="col-sm-6">
+    <form ng-submit="submit(user)" accept-charset="utf-8" class="form">
+
+      <fieldset>
+        <legend>Login</legend>
+        <div class="form-group">
+          <label>Email</label>
+          <input ng-model="user.email" type="email" name="email" required placeholder="Email" class="form-control">
+        </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input ng-model="user.password" type="password" name="password" required placeholder="Password" class="form-control">
+      </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Profile</legend>
+        <div class="form-group">
+          <label>First Name</label>
+          <input ng-model="user.first_name" type="text" name="first_name" required placeholder="First name" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input ng-model="user.last_name" type="text" name="last_name" required placeholder="Last name" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Role/Title</label>
+          <input ng-model="user.role" type="text" name="role" placeholder="Role" class="form-control">
+        </div>
+      </fieldset>
+
+      <fieldset ng-show="user.id">
+        <legend>Venue Association</legend>
+
+        <!-- venue associated with user -->
+        <label>Associated Venue</label> – <b ng-model="venue">{{venue.name}}</b>
+
+        <!-- change association -->
+        <div ng-controller="VenuesListController" class="form-group">
+          <select ng-model="user.selectedVenue" ng-options="venue.name for venue in venues" class="form-control">
+            <option value="">Select a venue</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <hr>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

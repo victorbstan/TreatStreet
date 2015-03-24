@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='TreatStreet'>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title><%= title %></title>
+  <link rel="shortcut icon" href="/images/logo-art.ico" type="image/x-icon">
+
+  <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/flatly-theme.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/loading-bar.css">
+  <link rel="stylesheet/less" type="text/css" href="/stylesheets/style.less">
+
+  <!-- libs -->
+  <script src="/javascripts/lib/less.js" type="text/javascript"></script>
+  <script src="/javascripts/lib/jquery.min.js" type="text/javascript"></script>
+  <script src="/javascripts/lib/underscore.min.js" type="text/javascript"></script>
+
+  <!-- bootstrap -->
+  <script src="/javascripts/lib/bootstrap.min.js" type="text/javascript"></script>
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- angular -->
+  <script src="/javascripts/lib/angular.min.js" type="text/javascript"></script>
+  <script src="/javascripts/lib/angular-route.min.js" type="text/javascript"></script>
+  <script src="/javascripts/lib/angular-sanitize.min.js" type="text/javascript"></script>
+  <script src="/javascripts/lib/angular-animate.min.js" type="text/javascript"></script>
+  <script src="/javascripts/lib/angular-file-upload.min.js" type="text/javascript"></script>
+  <script src="/javascripts/lib/loading-bar.js" type="text/javascript"></script>
+  <script src="/javascripts/lib/ui-bootstrap-custom-0.9.0.min.js" type="text/javascript"></script>
+  <script src="/javascripts/lib/ui-bootstrap-custom-tpls-0.9.0.min.js" type="text/javascript"></script>
+  <!-- angular end -->
+
+  <!-- app -->
+  <script src="/javascripts/application.js" type="text/javascript"></script>
+  <script src="/javascripts/controllers.js" type="text/javascript"></script>
+  <script src="/javascripts/services.js" type="text/javascript"></script>
+  <script src="/javascripts/factories.js" type="text/javascript"></script>
+  <script src="/javascripts/filters.js" type="text/javascript"></script>
+
+  <!-- ui -->
+  <script src="/javascripts/ui.js" type="text/javascript"></script>
+
+  <!-- remote -->
+  <script src="https://js.stripe.com/v2/" type="text/javascript"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" type="text/javascript"></script>
+
+  <link href="//fonts.googleapis.com/css?family=Roboto:400italic,400bold,300,400,700" media="screen" rel="stylesheet" type="text/css">
+
+  <link href='//fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+  <script type="text/javascript" charset="utf-8">
+    Stripe.setPublishableKey('');
+  </script>
+</head>
+<body ng-controller='MainController'>
+
+  <div class="container">
+
+    <div ng-include="'/templates/_navbar.html'"></div>
+    <div class="row">
+      <div ng-view class="col-sm-12"></div>
+    </div>
+
+  </div>
+
+  <div ng-controller="AlertController">
+    <alert ng-click="closeAlert($index)" ng-animate="'animate'" ng-repeat="alert in alerts" type="alert.type" class="float-notification">{{alert.msg}}</alert>
+  </div>
+
+</body>
+</html>

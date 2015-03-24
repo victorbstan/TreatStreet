@@ -1,0 +1,133 @@
+<h1 class="fadein">
+  Easy restaurant reservations in Barbados for your friends & family – from anywhere in the world!
+</h1>
+<p class="fadein">
+  1. Pick a venue — 2. Select your gift voucher value & quantity — 3. Pay online, and make your loved one happy :)
+</p>
+
+<hr>
+
+<div class="row venues-list fadein">
+
+  <ul class="thumbnails venues list-unstyled">
+    <li ng-repeat="venue in venues" class="col-sm-4">
+      <div class="thumbnail">
+        <div class="venue-list-photo">
+          <!-- CAROUSEL -->
+          <div id="venue-{{venue._id}}" class="carousel slide" data-ride="carousel">
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+              <div ng-repeat="image in venue.images" ng-class="{true:'item active', false:'item'}[image === venue.images[0]]"><img ng-src="{{image}}"></div>
+            </div>
+            <!-- Carousel nav -->
+            <a class="carousel-control left" href="#venue-{{venue._id}}" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="carousel-control right" href="#venue-{{venue._id}}" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+          </div>
+        </div>
+        <!-- DESCRIPTION -->
+        <div class="caption">
+          <div class="buttons">
+            <!-- OPEN MODAL BUTTON -->
+            <a ng-click="showModal($event,venue)" href="#venue-detail-modal" class="btn btn-success btn-block" data-toggle="modal">
+              <h3 class="text-center">{{venue.name}}</h3>
+            </a>
+          </div>
+          <div class="content">
+            <p ng-repeat="paragraph in venue.description | nl2Array track by $index">
+              {{paragraph}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+</div>
+
+<!-- Modal -->
+<div id="venue-detail-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div ng-model="modalVenue" class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel" class="fancy1 modal-title text-center">{{modalVenue.name}}</h3>
+      </div>
+      <div class="modal-body">
+        <center>
+          <div class="thumbnail">
+            <img class="img-responsive img-rounded" ng-src="{{modalVenue.images[0]}}" style="width:100%;">
+          </div>
+        </center>
+
+        <!-- Payment form -->
+        <div class="row">
+          <div class="col-sm-12">
+            <div ng-include="'/templates/venues/_order_form.html'"></div>
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div ng-repeat="location in modalVenue.locations" class='venue-contact'>
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a href="" data-target="#tab-one-{{$index}}" data-toggle="tab">Location</a>
+            </li>
+            <li>
+              <a href="" data-target="#tab-two-{{$index}}" data-toggle="tab">Map</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div id="tab-one-{{$index}}" class="tab-pane active">
+              <ul class="list-unstyled">
+                <li>
+                  <i class="fa fa-map-marker fa-2x location-icon"></i>
+                  <span class="location-copy">
+                    <a ng-href="http://maps.google.com/?q={{location.address}},{{location.city}},{{location.province}},{{location.country}}" target="_blank">{{location.fullAddress}}</a>
+                  </span>
+                </li>
+                <li>
+                  <i class="fa fa-phone fa-2x location-icon"></i>
+                  <span class="location-copy">
+                    <a href='tel:'>+1 246-432-2626</a>
+                  </span>
+                </li>
+                <li>
+                  <i class="fa fa-envelope fa-2x location-icon"></i>
+                  <span class="location-copy">
+                    <a href="mailto:{{location.email}}">
+                      {{location.email}}
+                    </a>
+                  </span>
+                </li>
+                <li>
+                  <i class="fa fa-globe fa-2x location-icon"></i>
+                  <span class="location-copy">
+                    <a href="{{location.url}}" target="_blank">{{location.url}}</a>
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div id="tab-two-{{$index}}" class="tab-pane">
+              <!-- MAP -->
+              <div ng-include="'/templates/venues/_venue_map.html'"></div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <!-- Description -->
+        <div class="description">
+          <p ng-repeat="paragraph in modalVenue.description | nl2Array track by $index">
+            {{paragraph}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

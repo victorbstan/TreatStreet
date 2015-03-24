@@ -1,0 +1,120 @@
+<div class="row fadein">
+  <div class="col-sm-12">
+    <form ng-submit="submit(order)" accept-charset="utf-8" class="form">
+
+      <div class="row">
+        <div class="col-sm-6">
+          <fieldset>
+            <legend>Order Details</legend>
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label>Redemption Code</label>
+                <input ng-model="order.redemptionCode" type="text" name="redemptionCode" readonly placeholder="Redemption Code" class="form-control">
+              </div>
+              <div class="form-group col-sm-6">
+                <label>Redemption Status</label>
+                <br>
+                <label>
+                  <input type="radio" ng-model="order.redemptionStatus" value="active"> Active
+                </label>
+                &nbsp;
+                <label>
+                  <input type="radio" ng-model="order.redemptionStatus" value="redeemed"> Redeemed
+                </label>
+                &nbsp;
+                <label>
+                  <input type="radio" ng-model="order.redemptionStatus" value="cancelled"> Cencelled
+                </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label>Quantity</label>
+                <input ng-model="order.quantity" type="number" name="quantity" required placeholder="Quantity" class="form-control">
+              </div>
+              <div class="form-group col-sm-6">
+                <label>Value</label>
+                <select ng-model="order.value" ng-options="value for value in [50,100,150]" class="form-control">
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Recipient</legend>
+
+            <div class="form-group">
+              <label>Name</label>
+              <input ng-model="order.recipient.name" type="text" name="name" required placeholder="Name" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input ng-model="order.recipient.email" type="email" name="email" required placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input ng-model="order.recipient.phone" type="tel" name="phone" placeholder="Phone" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea ng-model="order.recipient.message" rows="6" class="form-control"></textarea>
+            </div>
+          </fieldset>
+        </div>
+
+        <fieldset class="col-sm-6">
+          <legend>Payment</legend>
+          <div class="form-group">
+            <label>Name</label>
+            <input ng-model="order.payment.name" type="text" name="name" required placeholder="Name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input ng-model="order.payment.email" type="email" name="email" required placeholder="Email" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input ng-model="order.payment.phone" type="tel" name="phone" placeholder="Phone" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Card – Stripe Info</label>
+            <pre class="pre-scrollable">{{order.payment.card | json}}</pre>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea ng-model="order.payment.description" rows="6" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Currency</label>
+            <input ng-model="order.payment.currency" type="text" name="currency" placeholder="Currency" class="form-control">
+          </div>
+        </fieldset>
+
+        <fieldset ng-show="order.id" class="col-sm-6">
+          <legend>Venue Association</legend>
+
+          <!-- venue associated with order -->
+          <label>Associated Venue</label> – <span class="label label-primary" ng-model="venue">{{venue.name}}</span>
+
+          <!-- change association -->
+          <div ng-controller="VenuesListController" class="form-group">
+            <select ng-model="order.selectedVenue" ng-options="venue.name for venue in venues" class="form-control">
+              <option value="">Select a venue</option>
+            </select>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <hr>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

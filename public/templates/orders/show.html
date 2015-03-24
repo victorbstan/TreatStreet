@@ -1,0 +1,81 @@
+<h1 class="text-center fadein">Order Receipt</small></h1>
+
+<div class="row fadein">
+  <div class="col-sm-6 col-sm-offset-3">
+
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h2>Gift Card ID <span class="label label-primary">{{order.redemptionCode}}</span></h2>
+    </div>
+    <div class="panel-body">
+      <p>
+        The Gift Card ID & instructions have been emailed to <b>{{order.recipient.name}}</b>.
+        <br>
+        <b>{{order.recipient.name}}</b> should present this ID at the venue <b>{{venue.name}}</b> to redeem their gift :)
+      </p>
+    </div>
+    <div class="panel-footer">Redemption Status <span class="label label-primary">{{order.redemptionStatus | uppercase}}</span></div>
+  </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">Order Details</div>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <!-- <h4 class="list-group-item-heading">Quantity</h4> -->
+          <b>Quantity</b>
+          {{order.quantity}}
+        </li>
+        <li class="list-group-item">
+          <b>Value</b> {{order.value | currency}} {{order.payment.currency | uppercase}}
+        </li>
+        <li class="list-group-item">
+          <b>Total</b> {{order.total | currency}} {{order.payment.currency | uppercase}}
+        </li>
+        <li class="list-group-item">
+          <b>Created at</b> {{order.createdAt | date}}
+        </li>
+        <li class="list-group-item">
+          <b>Venue</b> {{venue.name}}
+        </li>
+      </ul>
+      <div class="panel-footer">&nbsp;</div>
+    </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">Recipient</div>
+      <ul class="list-group">
+        <li class="list-group-item"><b>Name</b> {{order.recipient.name}}</li>
+        <li class="list-group-item">
+          <b>Email</b>
+          <a href="mailto:{{order.recipient.email}}">{{order.recipient.email}}</a>
+        </li>
+        <li class="list-group-item" ng-show="order.recipient.phone">
+          <b>Phone</b>
+          <a href="tel:{{order.recipient.phone}}">{{order.recipient.phone}}</a>
+        </li>
+        <li class="list-group-item" ng-show="order.recipient.message">
+          <b>Message</b> {{order.recipient.message}}
+        </li>
+      </ul>
+      <div class="panel-footer">&nbsp;</div>
+    </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">Payment</div>
+      <ul class="list-group">
+        <li class="list-group-item"><b>Name</b> {{order.payment.name}}</li>
+        <li class="list-group-item">
+          <b>Email</b>
+          <a href="mailto:{{order.payment.email}}">{{order.payment.email}}</a>
+        </li>
+        <li class="list-group-item" ng-show="order.payment.phone">
+          <b>Phone</b> <a href="tel:{{order.payment.phone}}">{{order.payment.phone}}</a>
+        </li>
+        <li class="list-group-item" ng-show="order.payment.description">
+          <b>Description</b> {{order.payment.description}}
+        </li>
+      </ul>
+       <div class="panel-footer">&nbsp;</div>
+    </div>
+  </div>
+</div>

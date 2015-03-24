@@ -1,0 +1,53 @@
+<h1 class="page-header fadein">
+  Master Admin
+  <small>
+    {{sessionUser}}
+    <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+  </small>
+</h1>
+
+<ul class="nav nav-tabs fadein">
+  <li class="active">
+    <a href="active" data-target="#tab-one" data-toggle="tab">Orders</a>
+  </li>
+  <li>
+    <a href="" data-target="#tab-two" data-toggle="tab">Venues</a>
+  </li>
+  <li>
+    <a href="" data-target="#tab-three" data-toggle="tab">Users</a>
+  </li>
+</ul>
+
+<div class="tab-content fadein">
+
+  <div id="tab-one" class="tab-pane active">
+    <div ng-controller="OrdersController">
+      <h3>Orders</h3>
+      <!-- <p>
+        <a href="/#!/orders/new" class="btn btn-default btn-sm"><i class="fa fa-file"></i> New</a>
+      </p> -->
+      <div ng-include="'/templates/orders/_list.html'"></div>
+    </div>
+  </div>
+
+  <div id="tab-two" class="tab-pane">
+    <div ng-controller="VenuesController">
+      <h3>Venues</h3>
+      <p>
+        <a href="/#!/venues/new" class="btn btn-default btn-sm"><i class="fa fa-file"></i> New</a>
+      </p>
+      <div ng-include="'/templates/venues/_list.html'"></div>
+    </div>
+  </div>
+
+  <div id="tab-three" class="tab-pane">
+    <div ng-controller="UsersController">
+      <h3>Users</h3>
+      <p>
+        <a href="/#!/users/new" class="btn btn-default btn-sm"><i class="fa fa-file"></i> New</a>
+      </p>
+      <div ng-include="'/templates/users/_list.html'"></div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,14 @@
+<!-- CANCELLED -->
+
+<div ng-init="orders=orders.cancelled">
+  <div ng-hide="orders.length===0">
+    <!-- <pre>{{orders | json}}</pre> -->
+    <div class="row gift-cards-group">
+      <div ng-include="'/templates/restaurant_admin/_order_summary.html'"></div>
+    </div>
+  </div>
+
+  <div ng-show="orders.length===0">
+    <div class="alert alert-info">There are no cancelled orders.</div>
+  </div>
+</div>

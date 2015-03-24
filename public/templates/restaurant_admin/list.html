@@ -1,0 +1,42 @@
+<h1 class="page-header fadein">
+  Restaurant Manager
+  <small>
+    {{sessionUser}}
+    <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+  </small>
+</h1>
+
+<div ng-controller="RestaurantAdminController" class="fadein">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="active" data-target="#tab-one" data-toggle="tab">
+        Active <span class="badge">{{orders.active.length}}</span>
+      </a>
+    </li>
+    <li>
+      <a href="" data-target="#tab-two" data-toggle="tab">
+        Redeemed
+        <span class="badge">{{orders.redeemed.length}}</span>
+      </a>
+    </li>
+    <li>
+      <a href="" data-target="#tab-three" data-toggle="tab">
+        Cancelled <span class="badge">{{orders.cancelled.length}}</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="tab-one" class="tab-pane active">
+      <div ng-include="'/templates/restaurant_admin/_list_active.html'"></div>
+    </div>
+
+    <div id="tab-two" class="tab-pane">
+      <div ng-include="'/templates/restaurant_admin/_list_redeemed.html'"></div>
+    </div>
+
+    <div id="tab-three" class="tab-pane">
+      <div ng-include="'/templates/restaurant_admin/_list_cancelled.html'"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<table class="table table-striped table-hover table-condensed table-responsive fadein">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>User ID</th>
+      <th>Email</th>
+      <th>Tel</th>
+      <th>City</th>
+      <th>Country</th>
+      <th>Created</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="venue in venues">
+      <td>
+        <a href="/#!/venues/{{venue._id}}/edit" title="{{venue._id}}">{{venue.name}}</a>
+      </td>
+      <td>
+        <a href="/#!/users/{{venue._user}}/edit" title="{{venue._user}}">{{venue._user}}
+      </td>
+      <td>{{venue.locations[0].email}}</td>
+      <td>{{venue.locations[0].phone}}</td>
+      <td>{{venue.locations[0].city}}</td>
+      <td>{{venue.locations[0].country}}</td>
+      <td>{{venue.createdAt | date}}</td>
+      <td>
+        <a href="" ng-click="deleteVenue($index)" class="btn btn-xs btn-danger"><i class="fa fa-trash-o"></i></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
